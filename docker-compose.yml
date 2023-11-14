@@ -1,0 +1,88 @@
+version: "3.4"
+
+networks:
+  network:
+    driver: bridge
+
+name: NightLife
+services:
+  client:
+    environment:
+      - NODE_ENV=development
+    container_name: night-life_client
+    build:
+      args:
+        MODE: build
+      dockerfile: Dockerfile
+      context: ./web-client/
+    volumes:
+      - ./docker/web-client/nginx_new.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "3000:3000"
+    networks:
+      - network
+
+  api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    container_name: night-life_api
+    build:
+      dockerfile: Dockerfile
+      context: ./NightLife.Application/
+    restart: on-failure
+    ports:
+      - "5183:80"
+    networks:
+      - network
+
+  postgres:
+    image: postgres:16.0
+    container_name: night-life_postgres
+    environment:
+      POSTGRES_DB: "night_life"
+      POSTGRES_USER: "night_life_user"
+      POSTGRES_PASSWORD: "night_life"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - pg_night_life:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U night_life_user -d night_life"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "1"
+          memory: 4G
+    networks:
+      - network
+
+  pgadmin:
+    container_name: night-life_pgadmin
+    image: dpage/pgadmin4:7.2
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "night_life@night.com"
+      PGADMIN_DEFAULT_PASSWORD: "night_lif"
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+    volumes:
+      - pgadmin_night_life:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1G
+    networks:
+      - network
+
+volumes:
+  pg_night_life:
+  pgadmin_night_life:
+  iono-shared-data:

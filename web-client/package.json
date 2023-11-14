@@ -1,0 +1,78 @@
+{
+  "name": "web-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@react-oauth/google": "^0.11.1",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.61",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "axios": "^1.6.1",
+    "cesium": "^1.111.0",
+    "craco-cesium": "^1.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-images-uploading": "^3.1.7",
+    "react-redux": "^8.1.3",
+    "react-router-dom": "^6.18.0",
+    "react-scripts": "5.0.1",
+    "redux": "^4.2.1",
+    "redux-saga": "^1.2.3",
+    "resium": "^1.17.2",
+    "sass": "^1.69.5",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "useTabs": true,
+    "printWidth": 90,
+    "importOrder": [
+      "react",
+      "axios",
+      "service",
+      "context",
+      "cesium",
+      "resium",
+      "mui",
+      "common",
+      "components",
+      "ui",
+      "hooks",
+      "<THIRD_PARTY_MODULES>",
+      "images",
+      ".css",
+      ".scss"
+    ],
+    "importOrderSeparation": true
+  },
+  "scripts": {
+    "start": "craco start",
+    "build": "craco build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
