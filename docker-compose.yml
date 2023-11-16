@@ -4,7 +4,7 @@ networks:
   network:
     driver: bridge
 
-name: NightLife
+name: night-life
 services:
   client:
     environment:
@@ -14,7 +14,7 @@ services:
       args:
         MODE: build
       dockerfile: Dockerfile
-      context: ./web-client/
+      context: ./NightLife.WEB/
     volumes:
       - ./docker/web-client/nginx_new.conf:/etc/nginx/conf.d/default.conf
     ports:
@@ -28,7 +28,7 @@ services:
     container_name: night-life_api
     build:
       dockerfile: Dockerfile
-      context: ./NightLife.Application/
+      context: ./NightLife.API/
     restart: on-failure
     ports:
       - "5183:80"
@@ -67,7 +67,7 @@ services:
     image: dpage/pgadmin4:7.2
     environment:
       PGADMIN_DEFAULT_EMAIL: "night_life@night.com"
-      PGADMIN_DEFAULT_PASSWORD: "night_lif"
+      PGADMIN_DEFAULT_PASSWORD: "night_life"
       PGADMIN_CONFIG_SERVER_MODE: "False"
     volumes:
       - pgadmin_night_life:/var/lib/pgadmin
@@ -81,6 +81,18 @@ services:
           memory: 1G
     networks:
       - network
+
+  flyway:
+    image: flyway/flyway
+    container_name: night-life_flyway
+    command: -url=jdbc:postgresql://postgres:5432/night_life -user=night_life_user -password=night_life -placeholderReplacement=false -connectRetries=100 migrate
+    volumes:
+      - ./docker/flyway/sql:/flyway/sql
+    depends_on:
+      - postgres
+    networks:
+      - network
+
 
 volumes:
   pg_night_life:
