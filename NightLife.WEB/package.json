@@ -1,5 +1,5 @@
 {
-  "name": "web-client",
+  "name": "night-life.web",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +14,7 @@
     "axios": "^1.6.1",
     "cesium": "^1.111.0",
     "craco-cesium": "^1.2.0",
+    "html-webpack-plugin": "^5.5.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-images-uploading": "^3.1.7",

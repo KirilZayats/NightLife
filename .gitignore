@@ -1,1 +1,23 @@
 .DS_Store
+.vs/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+[Cc]ache/
+out.csv
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+artifacts/
+ShapeDir/
+msbuild.log
+msbuild.err
+msbuild.wrn
+logs.txt
