@@ -1,8 +1,11 @@
 import { Viewer } from 'resium';
-
-export { Viewer } from 'resium';
+import styles from './EarthMap.module.scss';
+import * as Cesium from 'cesium';
 
 const EarthMap = () => {
+	Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(20, 60, 35, 50);
+	Cesium.Ion.defaultAccessToken =
+		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIxYmQ0M2IwMy05ODFmLTRjODgtOWUyYS1kZGI5YTgwN2ViZDQiLCJpZCI6MTA0MzQ5LCJpYXQiOjE2ODk4Nzk3NDd9.BNp5VhSTvUono4XMbAl6ah1rb36pGPJRlBBs5F2eN08';
 	const viewerProps = {
 		infoBox: false,
 		timeline: false,
@@ -14,17 +17,14 @@ const EarthMap = () => {
 		homeButton: false,
 		vrButton: false,
 		imageryProvider: false,
+		fullscreenButton: false,
 	};
 
-
 	return (
-		<Viewer
-			style={{
-				width: '70%',
-			}}
-			full
-			{...viewerProps}
-		></Viewer>
+		<div className={styles['earth-map-root']}>
+			<div className={styles['earth-map__label']}>Nigh Life</div>
+			<Viewer className={styles['earth-map-resium']} full {...viewerProps}></Viewer>
+		</div>
 	);
 };
 

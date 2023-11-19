@@ -2,9 +2,9 @@
 {
     public class SignUp
     {
-        public string UserName { get; set; } = string.Empty;
+        public string Nmae { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string PictureUrl { get; set; } = string.Empty;
-        public string Uid { get; set; } = string.Empty;
+        public string Pictur { get; set; } = string.Empty;
+        public string Sub { get; set; } = string.Empty;
     }
 }

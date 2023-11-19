@@ -1,0 +1,16 @@
+.btn-root {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: solid 5px #F1916D;
+	border-radius: 25px;
+	width: 40px;
+	height: 40px;
+	font-size: 18px;
+	font-weight: 700;
+	font-family:sans-serif;
+	cursor: pointer;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.300);
+	}
+}

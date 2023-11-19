@@ -1,7 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS public.users(
-    uid text primary key,
+    sub text primary key,
     uname text NOT NULL,
     uemail text,
     uavata text

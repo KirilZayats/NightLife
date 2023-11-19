@@ -1,0 +1,32 @@
+.earth-map-root {
+	display: flex;
+	position: relative;
+	width: 70%;
+	height: 100vh;
+}
+.earth-map-resium {
+	position: absolute;
+	margin: auto;
+	width: 88%;
+	height: 88%;
+	overflow: hidden;
+	border-radius: 30px;
+	box-sizing: border-box;
+	border: solid 5px #F1916D
+}
+.earth-map__label {
+	position: absolute;
+	z-index: 1000;
+	padding: 0.8rem 10rem;
+	top: 10%;
+	left: 30%;
+	text-align: center;
+	letter-spacing: 10px;
+	font-size: 30px;
+	border-radius: 20px;
+	font-weight: 900;
+	background-color: #bd83b8;
+	color: #06142E;
+	font-family: monospace;
+	border: solid 5px #F1916D
+}

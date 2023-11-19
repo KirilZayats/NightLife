@@ -1,0 +1,24 @@
+.search-root {
+	display: flex;
+	width: 80%;
+	border-radius: 20px;
+	background-color: #bd83b8;
+	border: solid 5px #F1916D;
+	align-items: center;
+	justify-content: space-between;
+	padding-right: 6px;
+}
+
+.search-input {
+	padding: 0.8rem 10rem;
+	width: 26%;
+	background-color: transparent;
+	border-radius: 20px;
+	font-family: monospace;
+	color: #06142e;
+	font-size: 30px;
+	border: none;
+	&:focus {
+		outline-width: 0;
+	}
+}

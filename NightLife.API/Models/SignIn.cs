@@ -2,6 +2,6 @@
 {
     public class SignIn
     {
-        public string Uid { get; set; } = string.Empty;
+        public string Sub { get; set; } = string.Empty;
     }
 }
