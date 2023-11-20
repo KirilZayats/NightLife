@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS public.comments(
 
 CREATE TABLE IF NOT EXISTS public.places(
     id uuid default uuid_generate_v4() primary key,
+    sub text NOT NULL,
     coords: text NOT NULL,
-    photos: uuid,
     raiting decimal,
     info: jsonb not NULL
 )

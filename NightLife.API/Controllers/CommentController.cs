@@ -2,10 +2,13 @@
 
 namespace NightLife.API.Controllers
 {
+    [Route("[controller]")]
+    [ApiController]
+
     public class CommentController : ControllerBase
     {
-        [HttpPost]
-        [Route("GetAll")]
+        [HttpGet]
+        [Route("all")]
         public async Task<IActionResult> GetAll()
         {
             return Ok();
