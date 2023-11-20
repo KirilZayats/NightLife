@@ -1,38 +1,27 @@
-.acc-ell-header {
-	display: flex;
-	width: 80%;
-	border-radius: 20px;
-	background-color: #bd83b8;
-	border: solid 5px #f1916d;
-	color: #06142E;
-	align-items: center;
-	justify-content: space-around;
-	padding: 0.8rem 0.2rem;
-	font-size: 30px;
-	font-family: monospace;
-	font-weight: 600;
-	box-sizing: border-box;
-}
-
-
 .acc-ell-info-root {
 	display: flex;
 	flex-direction: column;
 	width: 80%;
 	font-size: 30px;
 	font-family: monospace;
-	padding: 0.8rem 0.2rem;
+	padding: 0.8rem 0.5rem;
 	border: solid 5px #f1916d;
-	border-radius: 0 0 20px 20px;
+	border-radius: 30px;
 	box-sizing: border-box;
 	background-color: #bd83b8;
+    height: 88%;
 }
 
 .acc-ell-photo-label-country {
 	display: flex;
-	justify-content: end;
+    justify-content: space-around;
 	box-sizing: border-box;
 	padding-inline: 0.5rem;
+}
+
+.acc-ell__label-country {
+    display: flex;
+    flex-direction: column;
 }
 
 .acc-ell__description {
@@ -40,4 +29,10 @@
 	width: 100%;
 	box-sizing: border-box;
 	padding-inline: 0.5rem;
+}
+
+.acc-ell__photo {
+    display: flex;
+    
+    height: 320px;
 }

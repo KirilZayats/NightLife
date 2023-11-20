@@ -18,6 +18,7 @@ function App() {
 			<div
 				style={{
 					display: 'flex',
+					overflow: 'hidden'
 				}}
 			>
 				<EarthMap />
