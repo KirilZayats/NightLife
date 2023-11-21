@@ -18,6 +18,10 @@ interface IPlacesState {
 		lon: number;
 		lat: number;
 	};
+	currentPosition: {
+		lon: number;
+		lat: number;
+	};
 	placeCreateMode: boolean;
 }
 
@@ -26,10 +30,19 @@ interface IStoreState {
 	places: IPlacesState;
 }
 
+interface IPostPlace {
+	sub: string;
+	info: string;
+	coords: string;
+	images: File[];
+	raiting: number;
+}
+
 export {
 	type UserInfo,
 	type GooglAuthResponse,
 	type IUsersState,
 	type IPlacesState,
 	type IStoreState,
+	type IPostPlace,
 };

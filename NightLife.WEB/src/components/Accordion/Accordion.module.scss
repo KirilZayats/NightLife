@@ -1,5 +1,14 @@
 .accordion-root {
-    height: 70%;
-    overflow-y: scroll;
-    width: 103%;
+	height: 70%;
+	overflow-y: scroll;
+	width: 103%;
+}
+
+.accordion-pagination {
+	width: 80%;
+	display: flex;
+	justify-content: center;
+	border-radius: 20px;
+	background-color: #f5d7d8;
+	border: solid 5px #f1916d;
 }

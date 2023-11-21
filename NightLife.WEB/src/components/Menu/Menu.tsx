@@ -4,6 +4,9 @@ import { Search } from '../Search';
 import styles from './Menu.module.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CreatePlace } from '../CreatePlace';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { User } from '../User';
 
 const data = [
 	{
@@ -75,6 +78,9 @@ const data = [
 ];
 
 const Menu = () => {
+	const dispatch = useDispatch();
+	useEffect(() => {}, []);
+
 	return (
 		<div className={styles['menu-root']}>
 			<BrowserRouter>
@@ -89,7 +95,8 @@ const Menu = () => {
 								</>
 							}
 						/>
-						<Route path="new" element={<CreatePlace />} />
+						<Route path="new" element={<CreatePlace />} />\
+						<Route path="user" element={<User />} />
 					</Route>
 				</Routes>
 			</BrowserRouter>
