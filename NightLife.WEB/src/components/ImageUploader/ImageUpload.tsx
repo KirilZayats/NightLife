@@ -22,34 +22,48 @@ const ImageUploader = () => {
 				}) => (
 					// write your building UI
 					<div className="upload__image-wrapper">
-						<button
-							style={isDragging ? { color: 'red' } : undefined}
-							onClick={onImageUpload}
+						&nbsp;
+						<div
+							className=""
+							style={{
+								color: isDragging ? 'red' : undefined,
+								height: '200px',
+								width: '190px',
+								border: 'solid 5px #f1916d',
+								display: !imageList.length ? 'flex' : '',
+								alignItems: !imageList.length ? 'center' : '',
+								justifyContent: !imageList.length ? 'center' : '',
+							}}
 							{...dragProps}
 						>
-							Click or Drop here
-						</button>
-						&nbsp;
-						{imageList.map((image, index) => (
-							<div key={index} className="image-item">
-								<img
-									src={image?.dataURL}
-									alt=""
-									width="200"
-									style={{
-										display: image ? '' : 'none',
-									}}
-								/>
-								<div className="image-item__btn-wrapper">
-									<button onClick={() => onImageUpdate(index)}>
-										Update
-									</button>
-									<button onClick={() => onImageRemove(index)}>
-										Remove
-									</button>
-								</div>
-							</div>
-						))}
+							{!imageList.length
+								? 'Drop here'
+								: imageList.map((image, index) => (
+										<div key={index} className="image-item">
+											<img
+												src={image?.dataURL}
+												alt={image.file?.name}
+												width="190"
+												height="200"
+												style={{
+													display: image ? '' : 'none',
+												}}
+											/>
+											<div className="image-item__btn-wrapper">
+												<button
+													onClick={() => onImageUpdate(index)}
+												>
+													Update
+												</button>
+												<button
+													onClick={() => onImageRemove(index)}
+												>
+													Remove
+												</button>
+											</div>
+										</div>
+								  ))}
+						</div>
 					</div>
 				)}
 			</ImageUploading>

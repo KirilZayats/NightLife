@@ -13,4 +13,23 @@ interface IUsersState {
 	user: any;
 }
 
-export { type UserInfo, type GooglAuthResponse, type IUsersState };
+interface IPlacesState {
+	mapPosition: {
+		lon: number;
+		lat: number;
+	};
+	placeCreateMode: boolean;
+}
+
+interface IStoreState {
+	users: IUsersState;
+	places: IPlacesState;
+}
+
+export {
+	type UserInfo,
+	type GooglAuthResponse,
+	type IUsersState,
+	type IPlacesState,
+	type IStoreState,
+};

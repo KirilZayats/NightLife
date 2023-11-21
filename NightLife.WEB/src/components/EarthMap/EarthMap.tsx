@@ -1,6 +1,9 @@
 import { Viewer } from 'resium';
 import styles from './EarthMap.module.scss';
 import * as Cesium from 'cesium';
+import { CoordsPicker } from '../CoordsPicker';
+import { useSelector } from 'react-redux';
+import { IStoreState } from '../../types';
 
 const EarthMap = () => {
 	Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(20, 60, 35, 50);
@@ -20,10 +23,13 @@ const EarthMap = () => {
 		fullscreenButton: false,
 	};
 
+
 	return (
 		<div className={styles['earth-map-root']}>
 			<div className={styles['earth-map__label']}>Nigh Life</div>
-			<Viewer className={styles['earth-map-resium']} full {...viewerProps}></Viewer>
+			<Viewer className={styles['earth-map-resium']} full {...viewerProps}>
+				<CoordsPicker />
+			</Viewer>
 		</div>
 	);
 };

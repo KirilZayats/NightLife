@@ -9,19 +9,21 @@
 	border-radius: 30px;
 	box-sizing: border-box;
 	background-color: #bd83b8;
-    height: 88%;
+	height: 88%;
 }
 
 .acc-ell-photo-label-country {
 	display: flex;
-    justify-content: space-around;
+	justify-content: space-around;
 	box-sizing: border-box;
-	padding-inline: 0.5rem;
+	padding-inline: 0.3rem;
 }
 
 .acc-ell__label-country {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: end;
 }
 
 .acc-ell__description {
@@ -29,10 +31,53 @@
 	width: 100%;
 	box-sizing: border-box;
 	padding-inline: 0.5rem;
+	font-size: 30px;
+	height: 280px;
+	background-color: #f5d7d8;
+	border: solid 5px #f1916d;
+	font-family: monospace;
+	color: #06142e;
 }
 
 .acc-ell__photo {
-    display: flex;
-    
-    height: 320px;
+	display: flex;
+	width: 180px;
+	height: 300px;
+}
+
+.inpt-place-name,
+.inpt-city {
+	display: flex;
+	width: 70%;
+	padding: 0.9rem;
+	margin-bottom: 2%;
+	border-radius: 20px;
+	background-color: #f5d7d8;
+	border: solid 5px #f1916d;
+	font-family: monospace;
+	color: #06142e;
+	font-size: 30px;
+	&:focus {
+		outline-width: 0;
+	}
+}
+
+
+.second-line-block {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	width: 100%;
+	font-family: monospace;
+	color: #06142e;
+	font-weight: 600;
+	font-size: 18px;
+}
+
+.second-line-block__pos {
+	display: flex;
+	flex-direction: column;
+	p {
+		margin: 0;
+	}
 }

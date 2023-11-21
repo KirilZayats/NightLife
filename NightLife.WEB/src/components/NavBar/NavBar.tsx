@@ -7,8 +7,14 @@ import PersonIcon from '@mui/icons-material/Person';
 const NavBar = () => {
 	return (
 		<div className={styles['nav-bar-root']}>
-			<Button label={<HomeIcon />} />
-			<Button label={<AddIcon />} />
+			<Button
+				label={<HomeIcon />}
+				onClick={() => (window.location.pathname = '/')}
+			/>
+			<Button
+				label={<AddIcon />}
+				onClick={() => (window.location.pathname = '/new')}
+			/>
 			<Button label={<PersonIcon />} />
 		</div>
 	);
