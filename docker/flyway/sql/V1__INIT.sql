@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS public.users(
 
 CREATE TABLE IF NOT EXISTS public.comments(
     id uuid default uuid_generate_v4() primary key,
-    user text NOT NULL,
+    user_name text NOT NULL,
     place uuid NOT NULL,
     message text,
     photos uuid,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS public.comments(
 CREATE TABLE IF NOT EXISTS public.places(
     id uuid default uuid_generate_v4() primary key,
     sub text NOT NULL,
-    coords: text NOT NULL,
+    coords text NOT NULL,
     raiting decimal,
-    info: jsonb not NULL
+    info jsonb not NULL
 )

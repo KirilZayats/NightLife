@@ -7,7 +7,7 @@ import { placesReduser } from './reducers/place-reducer';
 
 const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
-	yield all([watcherUsers, watcherPlaces]);
+	yield all([watcherUsers(), watcherPlaces()]);
 }
 const store = createStore(
 	combineReducers({

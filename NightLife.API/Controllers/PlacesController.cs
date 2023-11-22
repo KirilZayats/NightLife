@@ -15,17 +15,19 @@ namespace NightLife.API.Controllers
 
         [HttpGet]
         [Route("all")]
-        public async Task<IActionResult> GetAll([FromQuery] SearchParams searchParams)=>
-            Ok(_palceService.GetAll(searchParams));
+        public async Task<IActionResult> GetAll(SearchParams searchParams)=>
+            Ok(await _palceService.GetAll(searchParams));
 
         [HttpGet]
         [Route("pictures/{uuid}")]
+        [Consumes("multipart/form-data")]
         public async Task<IActionResult> GetPictures([FromRoute] string uuid) =>
-            Ok(await _palceService.GetPictures(uuid));
+            (await _palceService.GetPictures(uuid)).Select(file => File(file, "image/png", "img.png")).First();
 
         [HttpPost]
         [Route("new")]
-        public IActionResult AddNew([FromBody] PlaceCreate place)
+        [Consumes("multipart/form-data")]
+        public IActionResult AddNew(PlaceCreate place)
         {
             _palceService.CreatePlace(place);
             return NoContent();

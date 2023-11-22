@@ -10,10 +10,10 @@ const Accordion = ({ data }: { data: IAccordionElementProps[] }) => {
 				{data.map((props: IAccordionElementProps) => (
 					<AccordionElement
 						key={props.description}
-						label={props.label}
+						name={props.name}
 						photo={props.photo}
 						description={props.description}
-						country={props.country}
+						city={props.city}
 						sub={props.sub}
 						raiting={props.raiting}
 					/>

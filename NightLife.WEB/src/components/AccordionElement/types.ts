@@ -1,6 +1,6 @@
 interface IAccordionElementProps {
-	label?: string;
-	country?: string;
+	name?: string;
+	city?: string;
 	raiting?: number;
 	photo?: any;
 	description?: string;

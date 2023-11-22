@@ -1,3 +1,5 @@
+import { IAccordionElementProps } from "./components/AccordionElement/types";
+
 interface UserInfo {
 	email: string;
 	name: string;
@@ -23,6 +25,7 @@ interface IPlacesState {
 		lat: number;
 	};
 	placeCreateMode: boolean;
+	places: IAccordionElementProps[];
 }
 
 interface IStoreState {

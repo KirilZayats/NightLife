@@ -6,6 +6,6 @@
         public string Info { get; set; } = string.Empty;
         public string Coords { get; set; } = "0 0";
         public double Raiting { get; set; }
-        public IFormFileCollection Images { get; set; } = new FormFileCollection();
+        public FormFileCollection Images { get; set; }
     }
 }

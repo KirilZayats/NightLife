@@ -1,4 +1,4 @@
-import { takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import { IAccordionElementProps } from '../../components/AccordionElement/types';
 import { IPostPlace } from '../../types';
 import {
@@ -7,16 +7,23 @@ import {
 	POST_PLACE,
 	SET_CURRENT_PLACE_POSITION,
 	SET_MAP_POSITION,
+	SET_PLACES,
 } from '../action-types';
+import axios from 'axios';
 
 const setMapPosition = (mapPosition: { lon: number; lat: number }) => ({
 	type: SET_MAP_POSITION,
 	mapPosition,
 });
 
-const loadPosts = (posts: { search: string; page: number; sort: string }) => ({
+const loadPlaces = (posts: { search: string; page: number; sort: string }) => ({
 	type: LOAD_PLACES,
 	posts,
+});
+
+const setPlaces = (places: IAccordionElementProps[]) => ({
+	type: SET_PLACES,
+	places,
 });
 
 const setPlaceCreateMode = (placeCreateMode: boolean) => ({
@@ -35,23 +42,29 @@ const createPlace = (place: IPostPlace) => ({
 });
 
 function* postPlace(action: any) {
-	const place = action.place;
+	const place: IPostPlace = action.place;
 	const formData = new FormData();
-	Object.entries(place).forEach(([key, value]: any) => {
-		formData.append(key, value);
-	});
+	formData.append('Images', place.images[0]);
 
-	yield fetch('http://localhost:5183/places/new', {
-		method: 'POST',
-		body: formData,
-	});
+	yield axios.post(
+		`http://localhost:5183/new?Sub=${place.sub}&Info=${place.info}&Coords=${place.coords}&Raiting=${place.raiting}`,
+		formData,
+		{
+			headers: { 'Content-Type': 'multipart/form-data' },
+		}
+	);
 }
 
 function* fetchPlaces(action: any) {
-	const posts = action.posts;
-	let resp: Response = yield fetch(
-		`http://localhost:5183/places?search=${posts.search}&page=${posts.page}`
-	);
+	let resp: { data: IPostPlace[] } = yield axios.get('http://localhost:5183/all');
+	let resData = resp.data.map((el) => {
+		let info = JSON.parse(el.info);
+		return {
+			...el,
+			...info,
+		};
+	});
+	yield put(setPlaces(resData));
 }
 
 function* watcherPlaces() {
@@ -65,5 +78,5 @@ export {
 	watcherPlaces,
 	createPlace,
 	setCurrentPlacePosition,
-	loadPosts,
+	loadPlaces,
 };

@@ -7,6 +7,6 @@ namespace NightLife.API.Services.Places
     {
         void CreatePlace(PlaceCreate place);
         Task<IEnumerable<PlaceResponse>> GetAll(SearchParams searchParams);
-        Task<IEnumerable<IFormFile>> GetPictures(string uuid);
+        Task<IEnumerable<MemoryStream>> GetPictures(string uuid);
     }
 }

@@ -3,6 +3,7 @@ import {
 	IS_CREATE_PLACE_MODE,
 	SET_CURRENT_PLACE_POSITION,
 	SET_MAP_POSITION,
+	SET_PLACES,
 } from '../action-types';
 
 const initialState = {
@@ -15,6 +16,7 @@ const initialState = {
 		lat: 0,
 	},
 	placeCreateMode: false,
+	places: []
 };
 
 const placesReduser = (state: IPlacesState = initialState, action: any) => {
@@ -28,6 +30,9 @@ const placesReduser = (state: IPlacesState = initialState, action: any) => {
 
 		case SET_CURRENT_PLACE_POSITION: {
 			return { ...state, currentPosition: action.currentPosition };
+		}
+		case SET_PLACES: {
+			return { ...state, places: action.places };
 		}
 		default: {
 			return state;

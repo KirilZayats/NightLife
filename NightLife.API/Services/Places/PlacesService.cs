@@ -19,7 +19,7 @@ namespace NightLife.API.Services.Places
                 if (formFile.Length > 0)
                 {
                     using var memoryStream = new MemoryStream();
-                    await formFile.CopyToAsync(memoryStream);
+                    formFile.CopyTo(memoryStream);
 
                     files.Add(new ImageCreate
                     {
@@ -29,20 +29,19 @@ namespace NightLife.API.Services.Places
                 }
             }
             var uuid = await _placesRepository.AddPlace(place.Sub, place.Coords, place.Info, place.Raiting);
-            _placesRepository.AddImages(uuid, files);
+            _placesRepository.AddImages("key_0232cd", files);
         }
 
         public async Task<IEnumerable<PlaceResponse>> GetAll(SearchParams searchParams)=>
             await _placesRepository.GetAll(searchParams);
 
-        public async Task<IEnumerable<IFormFile>> GetPictures(string uuid)
+        public async Task<IEnumerable<MemoryStream>> GetPictures(string uuid)
         {
-            var collaction = new List<IFormFile>();
+            var collaction = new List<MemoryStream>();
             var pictures = await _placesRepository.GetPictures(uuid);
             foreach (var file in pictures)
             {
-                using var ms = new MemoryStream(file.Files);
-                collaction.Add(new FormFile(ms, 0, file.Files.Length, file.Name, file.Name));
+                collaction.Add(new MemoryStream(file.Files));
             }
             return collaction;
         }

@@ -4,7 +4,7 @@ import styles from './AccordionElement.module.scss';
 import { useState } from 'react';
 
 const AccordionElement = (props: IAccordionElementProps) => {
-	const { label, country, photo, description, sub, raiting } = props;
+	const { name, city, photo, description, sub, raiting } = props;
 	const [isOpen, setOpen] = useState(false);
 
 	return (
@@ -17,7 +17,7 @@ const AccordionElement = (props: IAccordionElementProps) => {
 				}}
 			>
 				<div>
-					{label}, {country}
+					{name}, {city}
 				</div>
 				<Rating value={raiting} readOnly precision={0.2} size="large" />
 			</div>
@@ -28,7 +28,7 @@ const AccordionElement = (props: IAccordionElementProps) => {
 						<div className={styles['acc-ell-photo-label-country']}>
 							<div className={styles['acc-ell__photo']}></div>
 							<div className={styles['acc-ell__label-country']}>
-								<h2>{label}</h2> <h3>{country}</h3>
+								<h2>{name}</h2> <h3>{city}</h3>
 							</div>
 						</div>
 						<Rating value={raiting} readOnly precision={0.2} size="large" />

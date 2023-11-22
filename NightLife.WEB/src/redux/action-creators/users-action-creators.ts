@@ -20,7 +20,7 @@ function* fetchSignUpUserInfo(action: any) {
 }
 
 function* watcherUsers() {
-	yield takeEvery(SIGNUP_USER, fetchSignUpUserInfo);
+	// yield takeEvery(SIGNUP_USER, fetchSignUpUserInfo);
 }
 
 export { signUp, watcherUsers };

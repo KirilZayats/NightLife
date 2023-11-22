@@ -4,82 +4,25 @@ import { Search } from '../Search';
 import styles from './Menu.module.scss';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { CreatePlace } from '../CreatePlace';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { User } from '../User';
-
-const data = [
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-	{
-		label: 'Muratio',
-		country: 'Morocco',
-		raiting: 3.3,
-		description: 'fsdgfadsgdsgarsg sdagdsg agd fg gadggvdgf dsg d fg dfgasgs',
-	},
-];
+import { loadPlaces } from '../../redux/action-creators';
+import { IStoreState } from '../../types';
 
 const Menu = () => {
 	const dispatch = useDispatch();
-	useEffect(() => {}, []);
+	const places = useSelector((store: IStoreState) => store.places.places);
+
+	useEffect(() => {
+		dispatch(
+			loadPlaces({
+				search: '',
+				page: 1,
+				sort: 'asc',
+			})
+		);
+	}, []);
 
 	return (
 		<div className={styles['menu-root']}>
@@ -91,7 +34,7 @@ const Menu = () => {
 							element={
 								<>
 									<Search />
-									<Accordion data={data} />
+									<Accordion data={places} />
 								</>
 							}
 						/>

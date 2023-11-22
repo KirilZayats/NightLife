@@ -1,6 +1,4 @@
 ﻿using Dapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.SignalR;
 using NightLife.API.Models;
 using Npgsql;
 using NpgsqlTypes;
@@ -16,69 +14,50 @@ namespace NightLife.API.Repositories.Places
         public PlacesRepository(IDbConnection connection)
         {
             _connection = (NpgsqlConnection)connection;
+            _connection.Open();
         }
 
 
-        public void AddImages(string uuid, List<ImageCreate> images)
+        public async void AddImages(string uuid, List<ImageCreate> images)
         {
             try
             {
-                _connection.Open();
-                using var transaction = _connection.BeginTransaction();
-                var cmd = new NpgsqlCommand($@"CREATE TABLE IF NOT EXISTS public.{uuid.Replace('-', '_')}(
+                var cmd = new NpgsqlCommand($@"CREATE TABLE IF NOT EXISTS public.key_{uuid.Replace('-', '_')}(
                                             id serial primary key,
                                             image_name text NOT NULL,
                                             image bytea
-                                            )", _connection, transaction);
-                cmd.ExecuteNonQuery();
+                                            )", _connection);
+                await cmd.ExecuteNonQueryAsync();
 
                 foreach (var image in images)
                 {
-                    var addCmd = new NpgsqlCommand($@"INSERT INTO public.{uuid}(                                          
-                                            image_name, image) VALUES(?, ?)", _connection, transaction);
-                    addCmd.Parameters.Add(new NpgsqlParameter("image", NpgsqlDbType.Bytea)
-                    { Value = image.Files });
-                    addCmd.Parameters.Add(new NpgsqlParameter("image_name", NpgsqlDbType.Text)
-                    { Value = image.Name });
-                    cmd.ExecuteNonQuery();
+                    var addCmd = new NpgsqlCommand($@"INSERT INTO public.key_{uuid.Replace('-', '_')}(                                          
+                                            image_name, image) VALUES(@image_name, @image)", _connection);
+                    addCmd.Parameters.AddWithValue("@image", image.Files);
+                    addCmd.Parameters.AddWithValue("@image_name", image.Name);
+                    await addCmd.ExecuteNonQueryAsync();
                 }
-                transaction.Commit();
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error AddPlace() - {e.Message}");
-            }
-            finally
-            {
-                _connection?.Close();
-                _connection?.Dispose();
+                Console.WriteLine($"Error AddImages() - {e.Message}");
             }
         }
 
         public async Task<string> AddPlace(string sub, string coords, string info, double raiting)
         {
-            string uuid = "";
             try
             {
-                _connection.Open();
-                using var transaction = _connection.BeginTransaction();
-                var cmd = new NpgsqlCommand($@"INSERT INTO public.places (sub, coords, raiting, info)
-                                                OUTPUT Inserted.id
-                                                VALUES ('{sub}', '{coords}', {raiting}, '{info}'::jsonb)", _connection, transaction);
-                uuid =  await cmd.ExecuteScalarAsync() as string ?? "";
-                transaction.Commit();
+                var cmd = $@"INSERT INTO public.places (sub, coords, raiting, info)                                                
+                                                VALUES ('{sub}', '{coords}', {raiting}, '{info}'::jsonb) RETURNING id as string";
+                return (await _connection.QueryAsync<string>(cmd)).First();
 
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error AddPlace() - {e.Message}");
+                return "";
             }
-            finally
-            {
-                _connection?.Close();
-                _connection?.Dispose();
-            }
-            return uuid;
         }
 
         public async Task<IEnumerable<PlaceResponse>> GetAll(SearchParams searchParams)
@@ -86,41 +65,29 @@ namespace NightLife.API.Repositories.Places
             IEnumerable<PlaceResponse> places = null;
             try
             {
-                _connection.Open();
-                using var transaction = _connection.BeginTransaction();
-                var cmd = $@"SELECT * FROM public.places WHERE ('{searchParams.SearchTerm ?? ""}' LIKE '%' || info->'name' || '%')
+                var cmd = $@"SELECT * FROM public.places WHERE ((info->'name')::text LIKE '%' || '{searchParams.SearchTerm ?? ""}' || '%')
                                                 LIMIT {searchParams.PageSize} OFFSET {(searchParams.PageNumber - 1) * searchParams.PageSize}";
                 places = (await _connection
-                           .QueryAsync<PlaceResponse>(cmd, transaction: transaction));
-
-                transaction.Commit();
-
+                           .QueryAsync<PlaceResponse>(cmd));
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error AddPlace() - {e.Message}");
-            }
-            finally
-            {
-                _connection?.Close();
-                _connection?.Dispose();
             }
 
             return places;
         }
 
         public async Task<IEnumerable<ImageCreate>> GetPictures(string uuid)
-        {            
-            IEnumerable<ImageCreate> places = null;
+        {
+            IEnumerable<ImageCreate> places = new List<ImageCreate>();
             try
             {
-                _connection.Open();
-                using var transaction = _connection.BeginTransaction();
                 var cmd = $@"SELECT * FROM public.{uuid.Replace('-', '_')}";
                 var dr = (await _connection
-                          .QueryAsync(cmd, transaction: transaction));
+                          .QueryAsync(cmd));
 
-                places = dr.Select(img =>
+                return dr.Select(img =>
                 {
                     byte[] productImageByte = null;
                     productImageByte = (byte[])img.image;
@@ -131,17 +98,11 @@ namespace NightLife.API.Repositories.Places
                     };
 
                 });
-                transaction.Commit();
 
             }
             catch (Exception e)
             {
                 Console.WriteLine($"Error AddPlace() - {e.Message}");
-            }
-            finally
-            {
-                _connection?.Close();
-                _connection?.Dispose();
             }
             return places;
         }
